@@ -6,16 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Acreditación Metrológica - Caudal</title>
     <meta name="description" content="Sistema de seguimiento para acreditación metrológica de medición de caudal">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
 
-<style>
-    /* Reset y estilos base */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
     body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
         line-height: 1.6;
@@ -75,9 +73,14 @@
     .btn-red { background: #f44336; color: white; }
     .btn-purple { background: #9C27B0; color: white; }
     
-    .btn:hover {
+    .btn:hover:not(:disabled) {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
     }
     
     .stats-card {
@@ -181,7 +184,7 @@
     
     .annex-content {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
         gap: 16px;
         flex-wrap: wrap;
@@ -189,7 +192,7 @@
     
     .annex-left {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: 16px;
         flex: 1;
         min-width: 300px;
@@ -197,6 +200,7 @@
     
     .annex-icon {
         font-size: 24px;
+        margin-top: 4px;
     }
     
     .annex-info {
@@ -241,6 +245,7 @@
     
     .edit-form {
         margin-top: 12px;
+        width: 100%;
     }
     
     .edit-select {
@@ -249,7 +254,7 @@
         border-radius: 6px;
         font-size: 14px;
         margin-bottom: 8px;
-        min-width: 80px;
+        width: 100px;
     }
     
     .edit-textarea {
@@ -260,6 +265,7 @@
         font-size: 14px;
         resize: vertical;
         font-family: inherit;
+        min-height: 60px;
     }
     
     .icon-btn {
@@ -270,6 +276,11 @@
         font-size: 18px;
         min-width: 44px;
         min-height: 44px;
+        transition: all 0.2s;
+    }
+    
+    .icon-btn:hover {
+        transform: scale(1.05);
     }
     
     .icon-btn.edit {
@@ -296,6 +307,12 @@
     
     .hidden {
         display: none;
+    }
+    
+    .edit-controls {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
     }
     
     /* Responsive */
@@ -530,34 +547,43 @@
                                 ${!isEditing && data.comment ? `<p class="annex-comment">${data.comment}</p>` : ''}
                                 ${isEditing ? `
                                     <div class="edit-form">
-                                        <select class="edit-select" id="temp-progress-${annex.id}">
-                                            ${Array.from({length: 10}, (_, i) => `
-                                                <option value="${i + 1}" ${data.progress === i + 1 ? 'selected' : ''}>
-                                                    ${i + 1}/10
-                                                </option>
-                                            `).join('')}
-                                        </select>
-                                        <textarea class="edit-textarea" id="temp-comment-${annex.id}" 
-                                                  placeholder="Observaciones..." rows="2">${data.comment}</textarea>
+                                        <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
+                                            <div>
+                                                <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">Progreso:</label>
+                                                <select class="edit-select" id="temp-progress-${annex.id}">
+                                                    ${Array.from({length: 10}, (_, i) => `
+                                                        <option value="${i + 1}" ${data.progress === i + 1 ? 'selected' : ''}>
+                                                            ${i + 1}/10
+                                                        </option>
+                                                    `).join('')}
+                                                </select>
+                                            </div>
+                                            <div style="flex: 1;">
+                                                <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">Observaciones:</label>
+                                                <textarea class="edit-textarea" id="temp-comment-${annex.id}" 
+                                                          placeholder="Agregue sus observaciones aquí...">${data.comment}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="edit-controls">
+                                            <button class="icon-btn save" onclick="saveEditing('${annex.id}')" title="Guardar cambios">✅</button>
+                                            <button class="icon-btn cancel" onclick="cancelEditing()" title="Cancelar edición">❌</button>
+                                        </div>
                                     </div>
                                 ` : ''}
                             </div>
                         </div>
                         
-                        <div class="progress-container">
-                            ${!isEditing ? `
+                        ${!isEditing ? `
+                            <div class="progress-container">
                                 <div style="text-align: center;">
                                     <div class="status-badge" style="background: ${getProgressColor(data.progress)};">
                                         ${getStatusText(data.progress)}
                                     </div>
                                     <div class="progress-value">${data.progress}/10</div>
                                 </div>
-                                <button class="icon-btn edit" onclick="startEditing('${annex.id}')">✏</button>
-                            ` : `
-                                <button class="icon-btn save" onclick="saveEditing('${annex.id}')">✅</button>
-                                <button class="icon-btn cancel" onclick="cancelEditing()">❌</button>
-                            `}
-                        </div>
+                                <button class="icon-btn edit" onclick="startEditing('${annex.id}')" title="Editar anexo">✏</button>
+                            </div>
+                        ` : ''}
                     </div>
                 </div>
             `;
@@ -566,13 +592,34 @@
 
     // Funciones de edición
     function startEditing(annexId) {
+        // Cancelar cualquier edición previa
+        if (editingItem !== null) {
+            cancelEditing();
+        }
+        
         editingItem = annexId;
         renderAnnexes();
+        
+        // Enfocar en el primer campo del formulario
+        setTimeout(() => {
+            const selectElement = document.getElementById(`temp-progress-${annexId}`);
+            if (selectElement) {
+                selectElement.focus();
+            }
+        }, 100);
     }
 
     function saveEditing(annexId) {
-        const progress = parseInt(document.getElementById(`temp-progress-${annexId}`).value);
-        const comment = document.getElementById(`temp-comment-${annexId}`).value;
+        const progressElement = document.getElementById(`temp-progress-${annexId}`);
+        const commentElement = document.getElementById(`temp-comment-${annexId}`);
+        
+        if (!progressElement || !commentElement) {
+            console.error('No se pudieron encontrar los elementos del formulario');
+            return;
+        }
+        
+        const progress = parseInt(progressElement.value);
+        const comment = commentElement.value.trim();
         
         progressData[annexId] = {
             progress: progress,
@@ -584,11 +631,25 @@
         saveData();
         updateProgressDisplay();
         renderAnnexes();
+        
+        // Mostrar confirmación visual
+        showSuccessMessage(`Anexo ${annexId} actualizado correctamente`);
     }
 
     function cancelEditing() {
         editingItem = null;
         renderAnnexes();
+    }
+
+    function showSuccessMessage(message) {
+        const indicator = document.getElementById('saved-indicator');
+        indicator.textContent = message;
+        indicator.classList.remove('hidden');
+        indicator.style.color = '#48bb78';
+        
+        setTimeout(() => {
+            showSavedIndicator();
+        }, 2000);
     }
 
     // Filtrar anexos
@@ -607,6 +668,8 @@
         link.download = `caudal-backup-${new Date().toISOString().split('T')[0]}.json`;
         link.click();
         URL.revokeObjectURL(url);
+        
+        showSuccessMessage('Datos exportados correctamente');
     }
 
     function importData(event) {
@@ -616,30 +679,50 @@
             reader.onload = (e) => {
                 try {
                     const importedData = JSON.parse(e.target.result);
+                    
+                    // Validar estructura de datos
+                    const isValidData = annexes.every(annex => 
+                        importedData[annex.id] && 
+                        typeof importedData[annex.id].progress === 'number' &&
+                        typeof importedData[annex.id].comment === 'string'
+                    );
+                    
+                    if (!isValidData) {
+                        alert('El archivo no tiene el formato correcto para este sistema.');
+                        return;
+                    }
+                    
                     progressData = importedData;
                     saveData();
                     updateProgressDisplay();
                     renderAnnexes();
-                    alert('Datos importados exitosamente!');
+                    showSuccessMessage('Datos importados exitosamente');
                 } catch (error) {
-                    alert('Error al importar el archivo.');
+                    alert('Error al leer el archivo. Verifique que sea un archivo JSON válido.');
+                    console.error('Import error:', error);
                 }
             };
             reader.readAsText(file);
         }
+        
+        // Limpiar el input
+        event.target.value = '';
     }
 
     function resetData() {
-        if (confirm('¿Estás seguro de resetear todos los datos de Caudal?')) {
+        if (confirm('¿Está seguro de que desea resetear todos los datos? Esta acción no se puede deshacer.')) {
             createInitialData();
+            editingItem = null;
             saveData();
             updateProgressDisplay();
             renderAnnexes();
+            showSuccessMessage('Todos los datos han sido reseteados');
         }
     }
 
     function generateReport() {
         const btn = document.getElementById('report-btn');
+        const originalText = btn.textContent;
         btn.textContent = 'Generando...';
         btn.disabled = true;
         
@@ -647,27 +730,321 @@
             const overallProgress = calculateOverallProgress();
             const completedAnnexes = annexes.filter(annex => progressData[annex.id].progress === 10);
             const urgentAnnexes = annexes.filter(annex => progressData[annex.id].progress <= 3);
+            const inProgressAnnexes = annexes.filter(annex => progressData[annex.id].progress >= 4 && progressData[annex.id].progress < 10);
             
-            alert(`Reporte Generado:
-
-
-📊 Progreso General: ${overallProgress}/10 (${overallProgress * 10}%)
-✅ Anexos Completados: ${completedAnnexes.length}/${annexes.length}
-⚠ Anexos Urgentes: ${urgentAnnexes.length}
-
-El reporte completo se abriría en una nueva ventana en la versión completa.`);
-
-
-            btn.textContent = 'Generar Reporte';
+            // Crear reporte detallado
+            const reportData = {
+                fecha: new Date().toLocaleDateString('es-ES'),
+                progreso_general: overallProgress,
+                porcentaje_completado: overallProgress * 10,
+                anexos_completados: completedAnnexes.length,
+                anexos_en_progreso: inProgressAnnexes.length,
+                anexos_urgentes: urgentAnnexes.length,
+                total_anexos: annexes.length,
+                detalle_anexos: annexes.map(annex => ({
+                    id: annex.id,
+                    nombre: annex.name,
+                    progreso: progressData[annex.id].progress,
+                    estado: getStatusText(progressData[annex.id].progress),
+                    comentario: progressData[annex.id].comment || 'Sin comentarios',
+                    ultima_actualizacion: progressData[annex.id].lastUpdated
+                }))
+            };
+            
+            // Generar reporte HTML
+            const reportHTML = generateReportHTML(reportData);
+            
+            // Abrir en nueva ventana
+            const reportWindow = window.open('', '_blank');
+            reportWindow.document.write(reportHTML);
+            reportWindow.document.close();
+            
+            btn.textContent = originalText;
             btn.disabled = false;
-        }, 2000);
+            
+            showSuccessMessage('Reporte generado correctamente');
+        }, 1500);
     }
+
+    function generateReportHTML(data) {
+        return `
+
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Acreditación Metrológica - Caudal</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header { 
+            background: linear-gradient(135deg, #2196F3, #1976D2); 
+            color: white; 
+            padding: 30px; 
+            text-align: center; 
+        }
+        .header h1 { 
+            margin: 0; 
+            font-size: 28px; 
+            margin-bottom: 10px;
+        }
+        .header p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 30px;
+        }
+        .stats { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 20px; 
+            margin-bottom: 30px; 
+        }
+        .stat-card { 
+            background: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 10px; 
+            text-align: center;
+            border-left: 4px solid #2196F3;
+        }
+        .stat-value { 
+            font-size: 32px; 
+            font-weight: bold; 
+            color: #2196F3; 
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #2196F3;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .progress-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 20px 0; 
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .progress-table th { 
+            background: #2196F3; 
+            color: white; 
+            padding: 15px 12px; 
+            text-align: left;
+            font-weight: 600;
+        }
+        .progress-table td { 
+            padding: 12px; 
+            border-bottom: 1px solid #eee; 
+            vertical-align: top;
+        }
+        .progress-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .progress-bar { 
+            width: 100px; 
+            height: 20px; 
+            background: #f0f0f0; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .progress-fill { 
+            height: 100%; 
+            border-radius: 10px; 
+            transition: width 0.3s ease;
+        }
+        .status-completed { background: #4CAF50; }
+        .status-advanced { background: #2196F3; }
+        .status-progress { background: #FF9800; }
+        .status-starting { background: #f44336; }
+        .recommendations { 
+            background: #f8f9fa; 
+            padding: 20px; 
+            border-radius: 10px; 
+            border-left: 4px solid #2196F3;
+        }
+        .recommendations h3 {
+            color: #2196F3;
+            margin-top: 0;
+        }
+        .recommendations ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .recommendations li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .footer {
+            text-align: center; 
+            margin-top: 40px; 
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 14px;
+        }
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💧 REPORTE DE ACREDITACIÓN METROLÓGICA</h1>
+            <p><strong>Sistema de Medición de Caudal de Fluidos</strong></p>
+            <p>Fecha de generación: ${data.fecha}</p>
+        </div>
+
+
+    <div class="content">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value">${data.progreso_general}/10</div>
+                <div class="stat-label">Progreso General</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">${data.porcentaje_completado}%</div>
+                <div class="stat-label">Completado</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">${data.anexos_completados}</div>
+                <div class="stat-label">Anexos Terminados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">${data.anexos_urgentes}</div>
+                <div class="stat-label">Anexos Urgentes</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📊 Estado Detallado de Anexos</h2>
+            <table class="progress-table">
+                <thead>
+                    <tr>
+                        <th>Anexo</th>
+                        <th>Progreso</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
+                        <th>Última Actualización</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${data.detalle_anexos.map(annex => {
+                        const progressPercent = annex.progreso * 10;
+                        let statusClass = 'status-starting';
+                        if (annex.progreso === 10) statusClass = 'status-completed';
+                        else if (annex.progreso >= 7) statusClass = 'status-advanced';
+                        else if (annex.progreso >= 4) statusClass = 'status-progress';
+                        
+                        return `
+                            <tr>
+                                <td><strong>Anexo ${annex.id}</strong><br>${annex.nombre}</td>
+                                <td>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill ${statusClass}" style="width: ${progressPercent}%"></div>
+                                    </div>
+                                    <br><strong>${progressPercent}%</strong>
+                                </td>
+                                <td><strong>${annex.estado}</strong></td>
+                                <td>${annex.comentario}</td>
+                                <td>${new Date(annex.ultima_actualizacion).toLocaleDateString('es-ES')}</td>
+                            </tr>
+                        `;
+                    }).join('')}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="section">
+            <div class="recommendations">
+                <h3>📋 Recomendaciones y Próximos Pasos</h3>
+                <ul>
+                    ${data.anexos_urgentes > 0 ? `<li><strong>Atención inmediata:</strong> ${data.anexos_urgentes} anexo(s) requieren atención urgente (progreso ≤ 30%)</li>` : ''}
+                    ${data.anexos_en_progreso > 0 ? `<li><strong>Seguimiento:</strong> ${data.anexos_en_progreso} anexo(s) en desarrollo activo</li>` : ''}
+                    <li><strong>Progreso general:</strong> El sistema presenta un ${data.porcentaje_completado}% de avance</li>
+                    ${data.porcentaje_completado >= 80 ? '<li><strong>Preparación para auditoría:</strong> Se recomienda iniciar preparativos para la auditoría de acreditación</li>' : '<li><strong>Desarrollo continuo:</strong> Mantener el ritmo de trabajo para alcanzar los objetivos planificados</li>'}
+                    <li><strong>Documentación:</strong> Asegurar que todos los procedimientos estén debidamente documentados</li>
+                    <li><strong>Revisión periódica:</strong> Realizar seguimientos semanales del progreso</li>
+                    <li><strong>Capacitación:</strong> Verificar que el personal esté capacitado en los procedimientos implementados</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Sistema de Acreditación Metrológica - Medición de Caudal</strong></p>
+            <p>Generado automáticamente el ${new Date().toLocaleString('es-ES')}</p>
+            <p>Este reporte refleja el estado actual del proceso de acreditación</p>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>`;
+        }
+
 
     // Inicializar aplicación
     document.addEventListener('DOMContentLoaded', function() {
         initializeData();
         updateProgressDisplay();
         renderAnnexes();
+        
+        // Mostrar mensaje de bienvenida
+        setTimeout(() => {
+            showSuccessMessage('Sistema cargado correctamente');
+        }, 500);
+    });
+
+    // Manejar teclas de acceso rápido
+    document.addEventListener('keydown', function(e) {
+        // Escape para cancelar edición
+        if (e.key === 'Escape' && editingItem !== null) {
+            cancelEditing();
+        }
+        
+        // Ctrl+S para exportar
+        if (e.ctrlKey && e.key === 's') {
+            e.preventDefault();
+            exportData();
+        }
+    });
+
+    // Prevenir pérdida de datos
+    window.addEventListener('beforeunload', function(e) {
+        if (editingItem !== null) {
+            e.preventDefault();
+            e.returnValue = 'Tienes cambios sin guardar. ¿Estás seguro de que quieres salir?';
+            return e.returnValue;
+        }
     });
 </script>
 
