@@ -1,39 +1,676 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Acreditaciones Metrológicas</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <style>
+    <title>Sistema de Acreditación Metrológica - Caudal</title>
+    <meta name="description" content="Sistema de seguimiento para acreditación metrológica de medición de caudal">
+
+
+<style>
+    /* Reset y estilos base */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+        line-height: 1.6;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+        padding: 16px;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .header {
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1a202c;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .subtitle {
+        color: #718096;
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .controls {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    
+    .btn {
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .btn-blue { background: #2196F3; color: white; }
+    .btn-green { background: #4CAF50; color: white; }
+    .btn-red { background: #f44336; color: white; }
+    .btn-purple { background: #9C27B0; color: white; }
+    
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .stats-card {
+        background: white;
+        border-radius: 16px;
+        padding: 32px;
+        margin-bottom: 24px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+        text-align: center;
+    }
+    
+    .progress-circle {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 24px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #e2e8f0;
+    }
+    
+    .progress-inner {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    .progress-text {
+        font-size: 36px;
+        font-weight: bold;
+        color: #2196F3;
+    }
+    
+    .search-container {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 24px;
+    }
+    
+    .search-box {
+        position: relative;
+    }
+    
+    .search-input {
+        width: 100%;
+        padding: 12px 12px 12px 48px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+    }
+    
+    .search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: #a0aec0;
+    }
+    
+    .annexes-container {
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+    }
+    
+    .annexes-title {
+        margin-bottom: 24px;
+        color: #2196F3;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    
+    .annex-item {
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+        transition: all 0.3s;
+        background: white;
+    }
+    
+    .annex-item.completed {
+        background: #f0fdf4;
+        border-color: #4CAF50;
+    }
+    
+    .annex-item.editing {
+        background: #fff3e0;
+        border-color: #FF9800;
+    }
+    
+    .annex-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    
+    .annex-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex: 1;
+        min-width: 300px;
+    }
+    
+    .annex-icon {
+        font-size: 24px;
+    }
+    
+    .annex-info {
+        flex: 1;
+    }
+    
+    .annex-title {
+        font-weight: 600;
+        color: #2d3748;
+        font-size: 16px;
+        margin-bottom: 4px;
+    }
+    
+    .annex-comment {
+        font-size: 14px;
+        color: #666;
+        margin-top: 8px;
+    }
+    
+    .progress-container {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+    
+    .status-badge {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+        color: white;
+        text-align: center;
+        min-width: 80px;
+    }
+    
+    .progress-value {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 4px;
+    }
+    
+    .edit-form {
+        margin-top: 12px;
+    }
+    
+    .edit-select {
+        padding: 8px 12px;
+        border: 2px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 8px;
+        min-width: 80px;
+    }
+    
+    .edit-textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 14px;
+        resize: vertical;
+        font-family: inherit;
+    }
+    
+    .icon-btn {
+        padding: 10px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+    
+    .icon-btn.edit {
+        background: #e3f2fd;
+        color: #1976D2;
+    }
+    
+    .icon-btn.save {
+        background: #c8e6c9;
+        color: #2e7d32;
+    }
+    
+    .icon-btn.cancel {
+        background: #ffcdd2;
+        color: #c62828;
+    }
+    
+    .saved-text {
+        font-size: 14px;
+        color: #48bb78;
+        margin-top: 8px;
+        font-weight: 500;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
         body {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-                sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            padding: 12px;
         }
-        #root {
-            min-height: 100vh;
+        
+        .title {
+            font-size: 20px;
         }
-        .loading {
-            display: flex;
+        
+        .controls {
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-size: 18px;
-            color: #667eea;
         }
-    </style>
+        
+        .btn {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .annex-content {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .annex-left {
+            min-width: auto;
+        }
+        
+        .progress-container {
+            justify-content: center;
+        }
+    }
+</style>
+
+
 </head>
 <body>
-    <div id="root">
-        <div class="loading">⏳ Cargando Sistema de Acreditaciones Metrológicas...</div>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="title">
+                <span>💧</span>
+                Acreditación Metrológica - Caudal
+            </div>
+            <div class="subtitle">Sistema de medición de caudal de fluidos</div>
+            <div id="saved-indicator" class="saved-text hidden"></div>
+
+
+        <div class="controls">
+            <button class="btn btn-purple" onclick="generateReport()" id="report-btn">
+                Generar Reporte
+            </button>
+            <button class="btn btn-blue" onclick="exportData()">
+                Exportar
+            </button>
+            <label class="btn btn-green" style="cursor: pointer;">
+                Importar
+                <input type="file" accept=".json" onchange="importData(event)" style="display: none;">
+            </label>
+            <button class="btn btn-red" onclick="resetData()">
+                Reset
+            </button>
+        </div>
     </div>
-    <script type="text/babel" src="app.js"></script>
+
+    <!-- Stats Card -->
+    <div class="stats-card">
+        <h2 style="color: #2196F3; margin-bottom: 24px;">💧 Medición de Caudal</h2>
+        <div class="progress-circle" id="progress-circle">
+            <div class="progress-inner">
+                <div class="progress-text" id="progress-text">1</div>
+                <div style="font-size: 14px; color: #666;">de 10</div>
+            </div>
+        </div>
+        <p style="font-size: 20px; color: #2196F3; font-weight: bold;" id="progress-percentage">
+            10% Completado
+        </p>
+        <p style="color: #666;">Acreditación para medición de caudal de fluidos</p>
+    </div>
+
+    <!-- Search -->
+    <div class="search-container">
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" placeholder="Buscar anexos..." 
+                   oninput="filterAnnexes(this.value)" id="search-input">
+        </div>
+    </div>
+
+    <!-- Annexes -->
+    <div class="annexes-container">
+        <h3 class="annexes-title">Anexos de Acreditación</h3>
+        <div id="annexes-list"></div>
+    </div>
+</div>
+
+<script>
+    // Datos de la aplicación
+    const annexes = [
+        { id: 11, name: "Procedimiento de calibración", icon: "🔧" },
+        { id: 12, name: "Procedimiento para incertidumbre", icon: "📊" },
+        { id: 13, name: "Procedimiento de verificaciones", icon: "✅" },
+        { id: 14, name: "Procedimiento para el aseguramiento", icon: "🛡" },
+        { id: 15, name: "Procedimientos para patrones", icon: "📐" },
+        { id: 16, name: "Procedimientos para los ítems de calibración", icon: "📄" },
+        { id: 17, name: "Validación de método", icon: "✅" },
+        { id: 18, name: "Presupuesto de la incertidumbre", icon: "📊" },
+        { id: 19, name: "Informe de validación de HC", icon: "📋" },
+        { id: 20, name: "Condiciones ambientales", icon: "🌡" },
+        { id: 21, name: "Personal", icon: "👥" },
+        { id: "22a", name: "Alcance solicitado", icon: "📄" },
+        { id: "22b", name: "Declaración de conformidad", icon: "✅" },
+        { id: 26, name: "Equipos", icon: "⚙" },
+        { id: 27, name: "Aseguramiento de los resultados", icon: "🔒" },
+        { id: 28, name: "Lista de persona(s) autorizada", icon: "👥" },
+        { id: 29, name: "Ejemplo de certificado", icon: "📜" },
+        { id: 30, name: "Lista de Interlaboratorios", icon: "🏢" }
+    ];
+
+    let progressData = {};
+    let editingItem = null;
+    let searchTerm = '';
+
+    // Inicializar datos
+    function initializeData() {
+        const saved = localStorage.getItem('caudal-acreditacion');
+        if (saved) {
+            try {
+                progressData = JSON.parse(saved);
+                // Verificar integridad
+                annexes.forEach(annex => {
+                    if (!progressData[annex.id]) {
+                        progressData[annex.id] = {
+                            progress: 1,
+                            comment: '',
+                            lastUpdated: new Date().toISOString().split('T')[0]
+                        };
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading data:', error);
+                createInitialData();
+            }
+        } else {
+            createInitialData();
+        }
+    }
+
+    function createInitialData() {
+        progressData = {};
+        annexes.forEach(annex => {
+            progressData[annex.id] = {
+                progress: 1,
+                comment: '',
+                lastUpdated: new Date().toISOString().split('T')[0]
+            };
+        });
+    }
+
+    // Guardar datos
+    function saveData() {
+        try {
+            localStorage.setItem('caudal-acreditacion', JSON.stringify(progressData));
+            showSavedIndicator();
+        } catch (error) {
+            console.error('Error saving data:', error);
+        }
+    }
+
+    function showSavedIndicator() {
+        const indicator = document.getElementById('saved-indicator');
+        indicator.textContent = 'Último guardado: ' + new Date().toLocaleString('es-ES');
+        indicator.classList.remove('hidden');
+    }
+
+    // Funciones utilitarias
+    function getProgressColor(progress) {
+        if (progress <= 3) return '#f44336';
+        if (progress <= 6) return '#FF9800';
+        if (progress <= 8) return '#2196F3';
+        return '#4CAF50';
+    }
+
+    function getStatusText(progress) {
+        if (progress === 10) return 'Completado';
+        if (progress >= 7) return 'Avanzado';
+        if (progress >= 4) return 'En Progreso';
+        return 'Iniciando';
+    }
+
+    function calculateOverallProgress() {
+        const total = annexes.reduce((sum, annex) => sum + progressData[annex.id].progress, 0);
+        return Math.round(total / annexes.length);
+    }
+
+    // Actualizar UI
+    function updateProgressDisplay() {
+        const overallProgress = calculateOverallProgress();
+        document.getElementById('progress-text').textContent = overallProgress;
+        document.getElementById('progress-percentage').textContent = `${overallProgress * 10}% Completado`;
+        
+        // Actualizar círculo de progreso
+        const circle = document.getElementById('progress-circle');
+        const percentage = overallProgress * 10;
+        circle.style.background = `conic-gradient(#2196F3 ${percentage * 3.6}deg, #e2e8f0 0deg)`;
+    }
+
+    function renderAnnexes() {
+        const container = document.getElementById('annexes-list');
+        const filteredAnnexes = annexes.filter(annex => 
+            annex.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            annex.id.toString().includes(searchTerm)
+        );
+
+        container.innerHTML = filteredAnnexes.map(annex => {
+            const data = progressData[annex.id];
+            const isEditing = editingItem === annex.id;
+            const isCompleted = data.progress === 10;
+
+            return `
+                <div class="annex-item ${isCompleted ? 'completed' : ''} ${isEditing ? 'editing' : ''}">
+                    <div class="annex-content">
+                        <div class="annex-left">
+                            <span class="annex-icon">${annex.icon}</span>
+                            <div class="annex-info">
+                                <h4 class="annex-title">
+                                    Anexo ${annex.id} - ${annex.name}
+                                    ${isCompleted ? '<span style="margin-left: 8px; color: #4CAF50;">✓</span>' : ''}
+                                </h4>
+                                ${!isEditing && data.comment ? `<p class="annex-comment">${data.comment}</p>` : ''}
+                                ${isEditing ? `
+                                    <div class="edit-form">
+                                        <select class="edit-select" id="temp-progress-${annex.id}">
+                                            ${Array.from({length: 10}, (_, i) => `
+                                                <option value="${i + 1}" ${data.progress === i + 1 ? 'selected' : ''}>
+                                                    ${i + 1}/10
+                                                </option>
+                                            `).join('')}
+                                        </select>
+                                        <textarea class="edit-textarea" id="temp-comment-${annex.id}" 
+                                                  placeholder="Observaciones..." rows="2">${data.comment}</textarea>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                        
+                        <div class="progress-container">
+                            ${!isEditing ? `
+                                <div style="text-align: center;">
+                                    <div class="status-badge" style="background: ${getProgressColor(data.progress)};">
+                                        ${getStatusText(data.progress)}
+                                    </div>
+                                    <div class="progress-value">${data.progress}/10</div>
+                                </div>
+                                <button class="icon-btn edit" onclick="startEditing('${annex.id}')">✏</button>
+                            ` : `
+                                <button class="icon-btn save" onclick="saveEditing('${annex.id}')">✅</button>
+                                <button class="icon-btn cancel" onclick="cancelEditing()">❌</button>
+                            `}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // Funciones de edición
+    function startEditing(annexId) {
+        editingItem = annexId;
+        renderAnnexes();
+    }
+
+    function saveEditing(annexId) {
+        const progress = parseInt(document.getElementById(`temp-progress-${annexId}`).value);
+        const comment = document.getElementById(`temp-comment-${annexId}`).value;
+        
+        progressData[annexId] = {
+            progress: progress,
+            comment: comment,
+            lastUpdated: new Date().toISOString().split('T')[0]
+        };
+        
+        editingItem = null;
+        saveData();
+        updateProgressDisplay();
+        renderAnnexes();
+    }
+
+    function cancelEditing() {
+        editingItem = null;
+        renderAnnexes();
+    }
+
+    // Filtrar anexos
+    function filterAnnexes(term) {
+        searchTerm = term;
+        renderAnnexes();
+    }
+
+    // Funciones de manejo de datos
+    function exportData() {
+        const dataStr = JSON.stringify(progressData, null, 2);
+        const dataBlob = new Blob([dataStr], {type: 'application/json'});
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `caudal-backup-${new Date().toISOString().split('T')[0]}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+
+    function importData(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    progressData = importedData;
+                    saveData();
+                    updateProgressDisplay();
+                    renderAnnexes();
+                    alert('Datos importados exitosamente!');
+                } catch (error) {
+                    alert('Error al importar el archivo.');
+                }
+            };
+            reader.readAsText(file);
+        }
+    }
+
+    function resetData() {
+        if (confirm('¿Estás seguro de resetear todos los datos de Caudal?')) {
+            createInitialData();
+            saveData();
+            updateProgressDisplay();
+            renderAnnexes();
+        }
+    }
+
+    function generateReport() {
+        const btn = document.getElementById('report-btn');
+        btn.textContent = 'Generando...';
+        btn.disabled = true;
+        
+        setTimeout(() => {
+            const overallProgress = calculateOverallProgress();
+            const completedAnnexes = annexes.filter(annex => progressData[annex.id].progress === 10);
+            const urgentAnnexes = annexes.filter(annex => progressData[annex.id].progress <= 3);
+            
+            alert(`Reporte Generado:
+
+
+📊 Progreso General: ${overallProgress}/10 (${overallProgress * 10}%)
+✅ Anexos Completados: ${completedAnnexes.length}/${annexes.length}
+⚠ Anexos Urgentes: ${urgentAnnexes.length}
+
+El reporte completo se abriría en una nueva ventana en la versión completa.`);
+
+
+            btn.textContent = 'Generar Reporte';
+            btn.disabled = false;
+        }, 2000);
+    }
+
+    // Inicializar aplicación
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeData();
+        updateProgressDisplay();
+        renderAnnexes();
+    });
+</script>
+
+
 </body>
 </html>
