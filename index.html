@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -13,343 +12,340 @@
             box-sizing: border-box;
         }
 
-
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-        line-height: 1.6;
-        min-height: 100vh;
-        background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
-        padding: 16px;
-    }
-    
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-    
-    .header {
-        background: white;
-        border-radius: 16px;
-        padding: 24px;
-        margin-bottom: 24px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
-    
-    .title {
-        font-size: 24px;
-        font-weight: bold;
-        color: #1a202c;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    
-    .subtitle {
-        color: #718096;
-        font-size: 16px;
-        margin-bottom: 16px;
-    }
-    
-    .controls {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-    
-    .btn {
-        padding: 12px 20px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    
-    .btn-blue { background: #2196F3; color: white; }
-    .btn-green { background: #4CAF50; color: white; }
-    .btn-red { background: #f44336; color: white; }
-    .btn-purple { background: #9C27B0; color: white; }
-    
-    .btn:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    
-    .btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-    
-    .stats-card {
-        background: white;
-        border-radius: 16px;
-        padding: 32px;
-        margin-bottom: 24px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.07);
-        text-align: center;
-    }
-    
-    .progress-circle {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        margin: 0 auto 24px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #e2e8f0;
-    }
-    
-    .progress-inner {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
-    
-    .progress-text {
-        font-size: 36px;
-        font-weight: bold;
-        color: #2196F3;
-    }
-    
-    .search-container {
-        background: white;
-        border-radius: 12px;
-        padding: 24px;
-        margin-bottom: 24px;
-    }
-    
-    .search-box {
-        position: relative;
-    }
-    
-    .search-input {
-        width: 100%;
-        padding: 12px 12px 12px 48px;
-        border: 2px solid #e2e8f0;
-        border-radius: 8px;
-        font-size: 15px;
-        outline: none;
-    }
-    
-    .search-icon {
-        position: absolute;
-        left: 16px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 18px;
-        color: #a0aec0;
-    }
-    
-    .annexes-container {
-        background: white;
-        border-radius: 12px;
-        padding: 24px;
-    }
-    
-    .annexes-title {
-        margin-bottom: 24px;
-        color: #2196F3;
-        font-size: 18px;
-        font-weight: 600;
-    }
-    
-    .annex-item {
-        border: 2px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 16px;
-        transition: all 0.3s;
-        background: white;
-    }
-    
-    .annex-item.completed {
-        background: #f0fdf4;
-        border-color: #4CAF50;
-    }
-    
-    .annex-item.editing {
-        background: #fff3e0;
-        border-color: #FF9800;
-    }
-    
-    .annex-content {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-    
-    .annex-left {
-        display: flex;
-        align-items: flex-start;
-        gap: 16px;
-        flex: 1;
-        min-width: 300px;
-    }
-    
-    .annex-icon {
-        font-size: 24px;
-        margin-top: 4px;
-    }
-    
-    .annex-info {
-        flex: 1;
-    }
-    
-    .annex-title {
-        font-weight: 600;
-        color: #2d3748;
-        font-size: 16px;
-        margin-bottom: 4px;
-    }
-    
-    .annex-comment {
-        font-size: 14px;
-        color: #666;
-        margin-top: 8px;
-    }
-    
-    .progress-container {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        flex-wrap: wrap;
-    }
-    
-    .status-badge {
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 13px;
-        font-weight: 600;
-        color: white;
-        text-align: center;
-        min-width: 80px;
-    }
-    
-    .progress-value {
-        font-size: 18px;
-        font-weight: bold;
-        margin-top: 4px;
-    }
-    
-    .edit-form {
-        margin-top: 12px;
-        width: 100%;
-    }
-    
-    .edit-select {
-        padding: 8px 12px;
-        border: 2px solid #e2e8f0;
-        border-radius: 6px;
-        font-size: 14px;
-        margin-bottom: 8px;
-        width: 100px;
-    }
-    
-    .edit-textarea {
-        width: 100%;
-        padding: 10px 14px;
-        border: 2px solid #e2e8f0;
-        border-radius: 8px;
-        font-size: 14px;
-        resize: vertical;
-        font-family: inherit;
-        min-height: 60px;
-    }
-    
-    .icon-btn {
-        padding: 10px;
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-        font-size: 18px;
-        min-width: 44px;
-        min-height: 44px;
-        transition: all 0.2s;
-    }
-    
-    .icon-btn:hover {
-        transform: scale(1.05);
-    }
-    
-    .icon-btn.edit {
-        background: #e3f2fd;
-        color: #1976D2;
-    }
-    
-    .icon-btn.save {
-        background: #c8e6c9;
-        color: #2e7d32;
-    }
-    
-    .icon-btn.cancel {
-        background: #ffcdd2;
-        color: #c62828;
-    }
-    
-    .saved-text {
-        font-size: 14px;
-        color: #48bb78;
-        margin-top: 8px;
-        font-weight: 500;
-    }
-    
-    .hidden {
-        display: none;
-    }
-    
-    .edit-controls {
-        display: flex;
-        gap: 8px;
-        margin-top: 12px;
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
         body {
-            padding: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            padding: 16px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a202c;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .subtitle {
+            color: #718096;
+            font-size: 16px;
+            margin-bottom: 16px;
         }
         
         .controls {
-            justify-content: center;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
         }
         
         .btn {
-            flex: 1;
-            min-width: 120px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .btn-blue { background: #2196F3; color: white; }
+        .btn-green { background: #4CAF50; color: white; }
+        .btn-red { background: #f44336; color: white; }
+        .btn-purple { background: #9C27B0; color: white; }
+        
+        .btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            text-align: center;
+        }
+        
+        .progress-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+        }
+        
+        .progress-inner {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .progress-text {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2196F3;
+        }
+        
+        .search-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 12px 12px 48px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #a0aec0;
+        }
+        
+        .annexes-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        .annexes-title {
+            margin-bottom: 24px;
+            color: #2196F3;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .annex-item {
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .annex-item.completed {
+            background: #f0fdf4;
+            border-color: #4CAF50;
+        }
+        
+        .annex-item.editing {
+            background: #fff3e0;
+            border-color: #FF9800;
         }
         
         .annex-content {
-            flex-direction: column;
-            align-items: stretch;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
         }
         
         .annex-left {
-            min-width: auto;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .annex-icon {
+            font-size: 24px;
+            margin-top: 4px;
+        }
+        
+        .annex-info {
+            flex: 1;
+        }
+        
+        .annex-title {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        
+        .annex-comment {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
         }
         
         .progress-container {
-            justify-content: center;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
         }
-    }
-</style>
-
-
+        
+        .status-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            min-width: 80px;
+        }
+        
+        .progress-value {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+        
+        .edit-form {
+            margin-top: 12px;
+            width: 100%;
+        }
+        
+        .edit-select {
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            margin-bottom: 8px;
+            width: 100px;
+        }
+        
+        .edit-textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            font-family: inherit;
+            min-height: 60px;
+        }
+        
+        .icon-btn {
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            min-width: 44px;
+            min-height: 44px;
+            transition: all 0.2s;
+        }
+        
+        .icon-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .icon-btn.edit {
+            background: #e3f2fd;
+            color: #1976D2;
+        }
+        
+        .icon-btn.save {
+            background: #c8e6c9;
+            color: #2e7d32;
+        }
+        
+        .icon-btn.cancel {
+            background: #ffcdd2;
+            color: #c62828;
+        }
+        
+        .saved-text {
+            font-size: 14px;
+            color: #48bb78;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .edit-controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 12px;
+            }
+            
+            .title {
+                font-size: 20px;
+            }
+            
+            .controls {
+                justify-content: center;
+            }
+            
+            .btn {
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            .annex-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .annex-left {
+                min-width: auto;
+            }
+            
+            .progress-container {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -362,416 +358,415 @@
             <div class="subtitle">Sistema de medición de caudal de fluidos</div>
             <div id="saved-indicator" class="saved-text hidden"></div>
 
-
-        <div class="controls">
-            <button class="btn btn-purple" onclick="generateReport()" id="report-btn">
-                Generar Reporte
-            </button>
-            <button class="btn btn-blue" onclick="exportData()">
-                Exportar
-            </button>
-            <label class="btn btn-green" style="cursor: pointer;">
-                Importar
-                <input type="file" accept=".json" onchange="importData(event)" style="display: none;">
-            </label>
-            <button class="btn btn-red" onclick="resetData()">
-                Reset
-            </button>
-        </div>
-    </div>
-
-    <!-- Stats Card -->
-    <div class="stats-card">
-        <h2 style="color: #2196F3; margin-bottom: 24px;">💧 Medición de Caudal</h2>
-        <div class="progress-circle" id="progress-circle">
-            <div class="progress-inner">
-                <div class="progress-text" id="progress-text">1</div>
-                <div style="font-size: 14px; color: #666;">de 10</div>
+            <div class="controls">
+                <button class="btn btn-purple" onclick="generateReport()" id="report-btn">
+                    Generar Reporte
+                </button>
+                <button class="btn btn-blue" onclick="exportData()">
+                    Exportar
+                </button>
+                <label class="btn btn-green" style="cursor: pointer;">
+                    Importar
+                    <input type="file" accept=".json" onchange="importData(event)" style="display: none;">
+                </label>
+                <button class="btn btn-red" onclick="resetData()">
+                    Reset
+                </button>
             </div>
         </div>
-        <p style="font-size: 20px; color: #2196F3; font-weight: bold;" id="progress-percentage">
-            10% Completado
-        </p>
-        <p style="color: #666;">Acreditación para medición de caudal de fluidos</p>
-    </div>
 
-    <!-- Search -->
-    <div class="search-container">
-        <div class="search-box">
-            <span class="search-icon">🔍</span>
-            <input type="text" class="search-input" placeholder="Buscar anexos..." 
-                   oninput="filterAnnexes(this.value)" id="search-input">
+        <!-- Stats Card -->
+        <div class="stats-card">
+            <h2 style="color: #2196F3; margin-bottom: 24px;">💧 Medición de Caudal</h2>
+            <div class="progress-circle" id="progress-circle">
+                <div class="progress-inner">
+                    <div class="progress-text" id="progress-text">1</div>
+                    <div style="font-size: 14px; color: #666;">de 10</div>
+                </div>
+            </div>
+            <p style="font-size: 20px; color: #2196F3; font-weight: bold;" id="progress-percentage">
+                10% Completado
+            </p>
+            <p style="color: #666;">Acreditación para medición de caudal de fluidos</p>
+        </div>
+
+        <!-- Search -->
+        <div class="search-container">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Buscar anexos..." 
+                       oninput="filterAnnexes(this.value)" id="search-input">
+            </div>
+        </div>
+
+        <!-- Annexes -->
+        <div class="annexes-container">
+            <h3 class="annexes-title">Anexos de Acreditación</h3>
+            <div id="annexes-list"></div>
         </div>
     </div>
 
-    <!-- Annexes -->
-    <div class="annexes-container">
-        <h3 class="annexes-title">Anexos de Acreditación</h3>
-        <div id="annexes-list"></div>
-    </div>
-</div>
+    <script>
+        // Datos de la aplicación
+        const annexes = [
+            { id: 11, name: "Procedimiento de calibración", icon: "🔧" },
+            { id: 12, name: "Procedimiento para incertidumbre", icon: "📊" },
+            { id: 13, name: "Procedimiento de verificaciones", icon: "✅" },
+            { id: 14, name: "Procedimiento para el aseguramiento", icon: "🛡" },
+            { id: 15, name: "Procedimientos para patrones", icon: "📏" },
+            { id: 16, name: "Procedimientos para los ítems de calibración", icon: "📄" },
+            { id: 17, name: "Validación de método", icon: "✅" },
+            { id: 18, name: "Presupuesto de la incertidumbre", icon: "📊" },
+            { id: 19, name: "Informe de validación de HC", icon: "📋" },
+            { id: 20, name: "Condiciones ambientales", icon: "🌡" },
+            { id: 21, name: "Personal", icon: "👥" },
+            { id: "22a", name: "Alcance solicitado", icon: "📄" },
+            { id: "22b", name: "Declaración de conformidad", icon: "✅" },
+            { id: 26, name: "Equipos", icon: "⚙" },
+            { id: 27, name: "Aseguramiento de los resultados", icon: "🔒" },
+            { id: 28, name: "Lista de persona(s) autorizada", icon: "👥" },
+            { id: 29, name: "Ejemplo de certificado", icon: "📜" },
+            { id: 30, name: "Lista de Interlaboratorios", icon: "🏢" }
+        ];
 
-<script>
-    // Datos de la aplicación
-    const annexes = [
-        { id: 11, name: "Procedimiento de calibración", icon: "🔧" },
-        { id: 12, name: "Procedimiento para incertidumbre", icon: "📊" },
-        { id: 13, name: "Procedimiento de verificaciones", icon: "✅" },
-        { id: 14, name: "Procedimiento para el aseguramiento", icon: "🛡" },
-        { id: 15, name: "Procedimientos para patrones", icon: "📐" },
-        { id: 16, name: "Procedimientos para los ítems de calibración", icon: "📄" },
-        { id: 17, name: "Validación de método", icon: "✅" },
-        { id: 18, name: "Presupuesto de la incertidumbre", icon: "📊" },
-        { id: 19, name: "Informe de validación de HC", icon: "📋" },
-        { id: 20, name: "Condiciones ambientales", icon: "🌡" },
-        { id: 21, name: "Personal", icon: "👥" },
-        { id: "22a", name: "Alcance solicitado", icon: "📄" },
-        { id: "22b", name: "Declaración de conformidad", icon: "✅" },
-        { id: 26, name: "Equipos", icon: "⚙" },
-        { id: 27, name: "Aseguramiento de los resultados", icon: "🔒" },
-        { id: 28, name: "Lista de persona(s) autorizada", icon: "👥" },
-        { id: 29, name: "Ejemplo de certificado", icon: "📜" },
-        { id: 30, name: "Lista de Interlaboratorios", icon: "🏢" }
-    ];
+        let progressData = {};
+        let editingItem = null;
+        let searchTerm = '';
 
-    let progressData = {};
-    let editingItem = null;
-    let searchTerm = '';
-
-    // Inicializar datos
-    function initializeData() {
-        const saved = localStorage.getItem('caudal-acreditacion');
-        if (saved) {
-            try {
-                progressData = JSON.parse(saved);
-                // Verificar integridad
-                annexes.forEach(annex => {
-                    if (!progressData[annex.id]) {
-                        progressData[annex.id] = {
-                            progress: 1,
-                            comment: '',
-                            lastUpdated: new Date().toISOString().split('T')[0]
-                        };
-                    }
-                });
-            } catch (error) {
-                console.error('Error loading data:', error);
+        // Inicializar datos
+        function initializeData() {
+            const saved = window.localStorage.getItem('caudal-acreditacion');
+            if (saved) {
+                try {
+                    progressData = JSON.parse(saved);
+                    // Verificar integridad
+                    annexes.forEach(annex => {
+                        if (!progressData[annex.id]) {
+                            progressData[annex.id] = {
+                                progress: 1,
+                                comment: '',
+                                lastUpdated: new Date().toISOString().split('T')[0]
+                            };
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    createInitialData();
+                }
+            } else {
                 createInitialData();
             }
-        } else {
-            createInitialData();
         }
-    }
 
-    function createInitialData() {
-        progressData = {};
-        annexes.forEach(annex => {
-            progressData[annex.id] = {
-                progress: 1,
-                comment: '',
+        function createInitialData() {
+            progressData = {};
+            annexes.forEach(annex => {
+                progressData[annex.id] = {
+                    progress: 1,
+                    comment: '',
+                    lastUpdated: new Date().toISOString().split('T')[0]
+                };
+            });
+        }
+
+        // Guardar datos
+        function saveData() {
+            try {
+                window.localStorage.setItem('caudal-acreditacion', JSON.stringify(progressData));
+                showSavedIndicator();
+            } catch (error) {
+                console.error('Error saving data:', error);
+            }
+        }
+
+        function showSavedIndicator() {
+            const indicator = document.getElementById('saved-indicator');
+            indicator.textContent = 'Último guardado: ' + new Date().toLocaleString('es-ES');
+            indicator.classList.remove('hidden');
+        }
+
+        // Funciones utilitarias
+        function getProgressColor(progress) {
+            if (progress <= 3) return '#f44336';
+            if (progress <= 6) return '#FF9800';
+            if (progress <= 8) return '#2196F3';
+            return '#4CAF50';
+        }
+
+        function getStatusText(progress) {
+            if (progress === 10) return 'Completado';
+            if (progress >= 7) return 'Avanzado';
+            if (progress >= 4) return 'En Progreso';
+            return 'Iniciando';
+        }
+
+        function calculateOverallProgress() {
+            const total = annexes.reduce((sum, annex) => sum + progressData[annex.id].progress, 0);
+            return Math.round(total / annexes.length);
+        }
+
+        // Actualizar UI
+        function updateProgressDisplay() {
+            const overallProgress = calculateOverallProgress();
+            document.getElementById('progress-text').textContent = overallProgress;
+            document.getElementById('progress-percentage').textContent = `${overallProgress * 10}% Completado`;
+            
+            // Actualizar círculo de progreso
+            const circle = document.getElementById('progress-circle');
+            const percentage = overallProgress * 10;
+            circle.style.background = `conic-gradient(#2196F3 ${percentage * 3.6}deg, #e2e8f0 0deg)`;
+        }
+
+        function renderAnnexes() {
+            const container = document.getElementById('annexes-list');
+            const filteredAnnexes = annexes.filter(annex => 
+                annex.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                annex.id.toString().includes(searchTerm)
+            );
+
+            container.innerHTML = filteredAnnexes.map(annex => {
+                const data = progressData[annex.id];
+                const isEditing = editingItem === annex.id;
+                const isCompleted = data.progress === 10;
+
+                return `
+                    <div class="annex-item ${isCompleted ? 'completed' : ''} ${isEditing ? 'editing' : ''}">
+                        <div class="annex-content">
+                            <div class="annex-left">
+                                <span class="annex-icon">${annex.icon}</span>
+                                <div class="annex-info">
+                                    <h4 class="annex-title">
+                                        Anexo ${annex.id} - ${annex.name}
+                                        ${isCompleted ? '<span style="margin-left: 8px; color: #4CAF50;">✓</span>' : ''}
+                                    </h4>
+                                    ${!isEditing && data.comment ? `<p class="annex-comment">${data.comment}</p>` : ''}
+                                    ${isEditing ? `
+                                        <div class="edit-form">
+                                            <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
+                                                <div>
+                                                    <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">Progreso:</label>
+                                                    <select class="edit-select" id="temp-progress-${annex.id}">
+                                                        ${Array.from({length: 10}, (_, i) => `
+                                                            <option value="${i + 1}" ${data.progress === i + 1 ? 'selected' : ''}>
+                                                                ${i + 1}/10
+                                                            </option>
+                                                        `).join('')}
+                                                    </select>
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">Observaciones:</label>
+                                                    <textarea class="edit-textarea" id="temp-comment-${annex.id}" 
+                                                              placeholder="Agregue sus observaciones aquí...">${data.comment}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="edit-controls">
+                                                <button class="icon-btn save" onclick="saveEditing('${annex.id}')" title="Guardar cambios">✅</button>
+                                                <button class="icon-btn cancel" onclick="cancelEditing()" title="Cancelar edición">❌</button>
+                                            </div>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                            
+                            ${!isEditing ? `
+                                <div class="progress-container">
+                                    <div style="text-align: center;">
+                                        <div class="status-badge" style="background: ${getProgressColor(data.progress)};">
+                                            ${getStatusText(data.progress)}
+                                        </div>
+                                        <div class="progress-value">${data.progress}/10</div>
+                                    </div>
+                                    <button class="icon-btn edit" onclick="startEditing('${annex.id}')" title="Editar anexo">✏️</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Funciones de edición - CORREGIDAS
+        function startEditing(annexId) {
+            // Cancelar cualquier edición previa
+            if (editingItem !== null) {
+                cancelEditing();
+            }
+            
+            editingItem = annexId;
+            renderAnnexes();
+            
+            // Enfocar en el primer campo del formulario
+            setTimeout(() => {
+                const selectElement = document.getElementById(`temp-progress-${annexId}`);
+                if (selectElement) {
+                    selectElement.focus();
+                }
+            }, 100);
+        }
+
+        function saveEditing(annexId) {
+            const progressElement = document.getElementById(`temp-progress-${annexId}`);
+            const commentElement = document.getElementById(`temp-comment-${annexId}`);
+            
+            if (!progressElement || !commentElement) {
+                console.error('No se pudieron encontrar los elementos del formulario');
+                return;
+            }
+            
+            const progress = parseInt(progressElement.value);
+            const comment = commentElement.value.trim();
+            
+            progressData[annexId] = {
+                progress: progress,
+                comment: comment,
                 lastUpdated: new Date().toISOString().split('T')[0]
             };
-        });
-    }
-
-    // Guardar datos
-    function saveData() {
-        try {
-            localStorage.setItem('caudal-acreditacion', JSON.stringify(progressData));
-            showSavedIndicator();
-        } catch (error) {
-            console.error('Error saving data:', error);
-        }
-    }
-
-    function showSavedIndicator() {
-        const indicator = document.getElementById('saved-indicator');
-        indicator.textContent = 'Último guardado: ' + new Date().toLocaleString('es-ES');
-        indicator.classList.remove('hidden');
-    }
-
-    // Funciones utilitarias
-    function getProgressColor(progress) {
-        if (progress <= 3) return '#f44336';
-        if (progress <= 6) return '#FF9800';
-        if (progress <= 8) return '#2196F3';
-        return '#4CAF50';
-    }
-
-    function getStatusText(progress) {
-        if (progress === 10) return 'Completado';
-        if (progress >= 7) return 'Avanzado';
-        if (progress >= 4) return 'En Progreso';
-        return 'Iniciando';
-    }
-
-    function calculateOverallProgress() {
-        const total = annexes.reduce((sum, annex) => sum + progressData[annex.id].progress, 0);
-        return Math.round(total / annexes.length);
-    }
-
-    // Actualizar UI
-    function updateProgressDisplay() {
-        const overallProgress = calculateOverallProgress();
-        document.getElementById('progress-text').textContent = overallProgress;
-        document.getElementById('progress-percentage').textContent = `${overallProgress * 10}% Completado`;
-        
-        // Actualizar círculo de progreso
-        const circle = document.getElementById('progress-circle');
-        const percentage = overallProgress * 10;
-        circle.style.background = `conic-gradient(#2196F3 ${percentage * 3.6}deg, #e2e8f0 0deg)`;
-    }
-
-    function renderAnnexes() {
-        const container = document.getElementById('annexes-list');
-        const filteredAnnexes = annexes.filter(annex => 
-            annex.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            annex.id.toString().includes(searchTerm)
-        );
-
-        container.innerHTML = filteredAnnexes.map(annex => {
-            const data = progressData[annex.id];
-            const isEditing = editingItem === annex.id;
-            const isCompleted = data.progress === 10;
-
-            return `
-                <div class="annex-item ${isCompleted ? 'completed' : ''} ${isEditing ? 'editing' : ''}">
-                    <div class="annex-content">
-                        <div class="annex-left">
-                            <span class="annex-icon">${annex.icon}</span>
-                            <div class="annex-info">
-                                <h4 class="annex-title">
-                                    Anexo ${annex.id} - ${annex.name}
-                                    ${isCompleted ? '<span style="margin-left: 8px; color: #4CAF50;">✓</span>' : ''}
-                                </h4>
-                                ${!isEditing && data.comment ? `<p class="annex-comment">${data.comment}</p>` : ''}
-                                ${isEditing ? `
-                                    <div class="edit-form">
-                                        <div style="display: flex; gap: 12px; align-items: flex-start; margin-bottom: 12px;">
-                                            <div>
-                                                <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">Progreso:</label>
-                                                <select class="edit-select" id="temp-progress-${annex.id}">
-                                                    ${Array.from({length: 10}, (_, i) => `
-                                                        <option value="${i + 1}" ${data.progress === i + 1 ? 'selected' : ''}>
-                                                            ${i + 1}/10
-                                                        </option>
-                                                    `).join('')}
-                                                </select>
-                                            </div>
-                                            <div style="flex: 1;">
-                                                <label style="display: block; font-size: 12px; color: #666; margin-bottom: 4px;">Observaciones:</label>
-                                                <textarea class="edit-textarea" id="temp-comment-${annex.id}" 
-                                                          placeholder="Agregue sus observaciones aquí...">${data.comment}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="edit-controls">
-                                            <button class="icon-btn save" onclick="saveEditing('${annex.id}')" title="Guardar cambios">✅</button>
-                                            <button class="icon-btn cancel" onclick="cancelEditing()" title="Cancelar edición">❌</button>
-                                        </div>
-                                    </div>
-                                ` : ''}
-                            </div>
-                        </div>
-                        
-                        ${!isEditing ? `
-                            <div class="progress-container">
-                                <div style="text-align: center;">
-                                    <div class="status-badge" style="background: ${getProgressColor(data.progress)};">
-                                        ${getStatusText(data.progress)}
-                                    </div>
-                                    <div class="progress-value">${data.progress}/10</div>
-                                </div>
-                                <button class="icon-btn edit" onclick="startEditing('${annex.id}')" title="Editar anexo">✏</button>
-                            </div>
-                        ` : ''}
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
-
-    // Funciones de edición
-    function startEditing(annexId) {
-        // Cancelar cualquier edición previa
-        if (editingItem !== null) {
-            cancelEditing();
-        }
-        
-        editingItem = annexId;
-        renderAnnexes();
-        
-        // Enfocar en el primer campo del formulario
-        setTimeout(() => {
-            const selectElement = document.getElementById(`temp-progress-${annexId}`);
-            if (selectElement) {
-                selectElement.focus();
-            }
-        }, 100);
-    }
-
-    function saveEditing(annexId) {
-        const progressElement = document.getElementById(`temp-progress-${annexId}`);
-        const commentElement = document.getElementById(`temp-comment-${annexId}`);
-        
-        if (!progressElement || !commentElement) {
-            console.error('No se pudieron encontrar los elementos del formulario');
-            return;
-        }
-        
-        const progress = parseInt(progressElement.value);
-        const comment = commentElement.value.trim();
-        
-        progressData[annexId] = {
-            progress: progress,
-            comment: comment,
-            lastUpdated: new Date().toISOString().split('T')[0]
-        };
-        
-        editingItem = null;
-        saveData();
-        updateProgressDisplay();
-        renderAnnexes();
-        
-        // Mostrar confirmación visual
-        showSuccessMessage(`Anexo ${annexId} actualizado correctamente`);
-    }
-
-    function cancelEditing() {
-        editingItem = null;
-        renderAnnexes();
-    }
-
-    function showSuccessMessage(message) {
-        const indicator = document.getElementById('saved-indicator');
-        indicator.textContent = message;
-        indicator.classList.remove('hidden');
-        indicator.style.color = '#48bb78';
-        
-        setTimeout(() => {
-            showSavedIndicator();
-        }, 2000);
-    }
-
-    // Filtrar anexos
-    function filterAnnexes(term) {
-        searchTerm = term;
-        renderAnnexes();
-    }
-
-    // Funciones de manejo de datos
-    function exportData() {
-        const dataStr = JSON.stringify(progressData, null, 2);
-        const dataBlob = new Blob([dataStr], {type: 'application/json'});
-        const url = URL.createObjectURL(dataBlob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `caudal-backup-${new Date().toISOString().split('T')[0]}.json`;
-        link.click();
-        URL.revokeObjectURL(url);
-        
-        showSuccessMessage('Datos exportados correctamente');
-    }
-
-    function importData(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const importedData = JSON.parse(e.target.result);
-                    
-                    // Validar estructura de datos
-                    const isValidData = annexes.every(annex => 
-                        importedData[annex.id] && 
-                        typeof importedData[annex.id].progress === 'number' &&
-                        typeof importedData[annex.id].comment === 'string'
-                    );
-                    
-                    if (!isValidData) {
-                        alert('El archivo no tiene el formato correcto para este sistema.');
-                        return;
-                    }
-                    
-                    progressData = importedData;
-                    saveData();
-                    updateProgressDisplay();
-                    renderAnnexes();
-                    showSuccessMessage('Datos importados exitosamente');
-                } catch (error) {
-                    alert('Error al leer el archivo. Verifique que sea un archivo JSON válido.');
-                    console.error('Import error:', error);
-                }
-            };
-            reader.readAsText(file);
-        }
-        
-        // Limpiar el input
-        event.target.value = '';
-    }
-
-    function resetData() {
-        if (confirm('¿Está seguro de que desea resetear todos los datos? Esta acción no se puede deshacer.')) {
-            createInitialData();
+            
             editingItem = null;
             saveData();
             updateProgressDisplay();
             renderAnnexes();
-            showSuccessMessage('Todos los datos han sido reseteados');
+            
+            // Mostrar confirmación visual
+            showSuccessMessage(`Anexo ${annexId} actualizado correctamente`);
         }
-    }
 
-    function generateReport() {
-        const btn = document.getElementById('report-btn');
-        const originalText = btn.textContent;
-        btn.textContent = 'Generando...';
-        btn.disabled = true;
-        
-        setTimeout(() => {
-            const overallProgress = calculateOverallProgress();
-            const completedAnnexes = annexes.filter(annex => progressData[annex.id].progress === 10);
-            const urgentAnnexes = annexes.filter(annex => progressData[annex.id].progress <= 3);
-            const inProgressAnnexes = annexes.filter(annex => progressData[annex.id].progress >= 4 && progressData[annex.id].progress < 10);
-            
-            // Crear reporte detallado
-            const reportData = {
-                fecha: new Date().toLocaleDateString('es-ES'),
-                progreso_general: overallProgress,
-                porcentaje_completado: overallProgress * 10,
-                anexos_completados: completedAnnexes.length,
-                anexos_en_progreso: inProgressAnnexes.length,
-                anexos_urgentes: urgentAnnexes.length,
-                total_anexos: annexes.length,
-                detalle_anexos: annexes.map(annex => ({
-                    id: annex.id,
-                    nombre: annex.name,
-                    progreso: progressData[annex.id].progress,
-                    estado: getStatusText(progressData[annex.id].progress),
-                    comentario: progressData[annex.id].comment || 'Sin comentarios',
-                    ultima_actualizacion: progressData[annex.id].lastUpdated
-                }))
-            };
-            
-            // Generar reporte HTML
-            const reportHTML = generateReportHTML(reportData);
-            
-            // Abrir en nueva ventana
-            const reportWindow = window.open('', '_blank');
-            reportWindow.document.write(reportHTML);
-            reportWindow.document.close();
-            
-            btn.textContent = originalText;
-            btn.disabled = false;
-            
-            showSuccessMessage('Reporte generado correctamente');
-        }, 1500);
-    }
+        function cancelEditing() {
+            editingItem = null;
+            renderAnnexes();
+        }
 
-    function generateReportHTML(data) {
-        return `
+        function showSuccessMessage(message) {
+            const indicator = document.getElementById('saved-indicator');
+            indicator.textContent = message;
+            indicator.classList.remove('hidden');
+            indicator.style.color = '#48bb78';
+            
+            setTimeout(() => {
+                showSavedIndicator();
+            }, 2000);
+        }
 
+        // Filtrar anexos
+        function filterAnnexes(term) {
+            searchTerm = term;
+            renderAnnexes();
+        }
 
-<!DOCTYPE html>
+        // Funciones de manejo de datos
+        function exportData() {
+            const dataStr = JSON.stringify(progressData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `caudal-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            showSuccessMessage('Datos exportados correctamente');
+        }
 
+        function importData(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        
+                        // Validar estructura de datos
+                        const isValidData = annexes.every(annex => 
+                            importedData[annex.id] && 
+                            typeof importedData[annex.id].progress === 'number' &&
+                            typeof importedData[annex.id].comment === 'string'
+                        );
+                        
+                        if (!isValidData) {
+                            alert('El archivo no tiene el formato correcto para este sistema.');
+                            return;
+                        }
+                        
+                        progressData = importedData;
+                        saveData();
+                        updateProgressDisplay();
+                        renderAnnexes();
+                        showSuccessMessage('Datos importados exitosamente');
+                    } catch (error) {
+                        alert('Error al leer el archivo. Verifique que sea un archivo JSON válido.');
+                        console.error('Import error:', error);
+                    }
+                };
+                reader.readAsText(file);
+            }
+            
+            // Limpiar el input
+            event.target.value = '';
+        }
+
+        function resetData() {
+            if (confirm('¿Está seguro de que desea resetear todos los datos? Esta acción no se puede deshacer.')) {
+                createInitialData();
+                editingItem = null;
+                saveData();
+                updateProgressDisplay();
+                renderAnnexes();
+                showSuccessMessage('Todos los datos han sido reseteados');
+            }
+        }
+
+        // FUNCIÓN GENERATEREPORT CORREGIDA
+        function generateReport() {
+            const btn = document.getElementById('report-btn');
+            const originalText = btn.textContent;
+            btn.textContent = 'Generando...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                const overallProgress = calculateOverallProgress();
+                const completedAnnexes = annexes.filter(annex => progressData[annex.id].progress === 10);
+                const urgentAnnexes = annexes.filter(annex => progressData[annex.id].progress <= 3);
+                const inProgressAnnexes = annexes.filter(annex => progressData[annex.id].progress >= 4 && progressData[annex.id].progress < 10);
+                
+                // Crear reporte detallado
+                const reportData = {
+                    fecha: new Date().toLocaleDateString('es-ES'),
+                    progreso_general: overallProgress,
+                    porcentaje_completado: overallProgress * 10,
+                    anexos_completados: completedAnnexes.length,
+                    anexos_en_progreso: inProgressAnnexes.length,
+                    anexos_urgentes: urgentAnnexes.length,
+                    total_anexos: annexes.length,
+                    detalle_anexos: annexes.map(annex => ({
+                        id: annex.id,
+                        nombre: annex.name,
+                        progreso: progressData[annex.id].progress,
+                        estado: getStatusText(progressData[annex.id].progress),
+                        comentario: progressData[annex.id].comment || 'Sin comentarios',
+                        ultima_actualizacion: progressData[annex.id].lastUpdated
+                    }))
+                };
+                
+                // Generar reporte HTML
+                const reportHTML = generateReportHTML(reportData);
+                
+                // Abrir en nueva ventana
+                const reportWindow = window.open('', '_blank');
+                if (reportWindow) {
+                    reportWindow.document.write(reportHTML);
+                    reportWindow.document.close();
+                    showSuccessMessage('Reporte generado correctamente');
+                } else {
+                    alert('No se pudo abrir la ventana del reporte. Verifique que no esté bloqueada por el navegador.');
+                }
+                
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        function generateReportHTML(data) {
+            return `<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -853,201 +848,4 @@
         .progress-table th { 
             background: #2196F3; 
             color: white; 
-            padding: 15px 12px; 
-            text-align: left;
-            font-weight: 600;
-        }
-        .progress-table td { 
-            padding: 12px; 
-            border-bottom: 1px solid #eee; 
-            vertical-align: top;
-        }
-        .progress-table tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-        .progress-bar { 
-            width: 100px; 
-            height: 20px; 
-            background: #f0f0f0; 
-            border-radius: 10px; 
-            overflow: hidden; 
-            display: inline-block;
-            vertical-align: middle;
-        }
-        .progress-fill { 
-            height: 100%; 
-            border-radius: 10px; 
-            transition: width 0.3s ease;
-        }
-        .status-completed { background: #4CAF50; }
-        .status-advanced { background: #2196F3; }
-        .status-progress { background: #FF9800; }
-        .status-starting { background: #f44336; }
-        .recommendations { 
-            background: #f8f9fa; 
-            padding: 20px; 
-            border-radius: 10px; 
-            border-left: 4px solid #2196F3;
-        }
-        .recommendations h3 {
-            color: #2196F3;
-            margin-top: 0;
-        }
-        .recommendations ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-        .recommendations li {
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-        .footer {
-            text-align: center; 
-            margin-top: 40px; 
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            color: #666;
-            font-size: 14px;
-        }
-        @media print {
-            body { background: white; }
-            .container { box-shadow: none; }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>💧 REPORTE DE ACREDITACIÓN METROLÓGICA</h1>
-            <p><strong>Sistema de Medición de Caudal de Fluidos</strong></p>
-            <p>Fecha de generación: ${data.fecha}</p>
-        </div>
-
-
-    <div class="content">
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-value">${data.progreso_general}/10</div>
-                <div class="stat-label">Progreso General</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">${data.porcentaje_completado}%</div>
-                <div class="stat-label">Completado</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">${data.anexos_completados}</div>
-                <div class="stat-label">Anexos Terminados</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">${data.anexos_urgentes}</div>
-                <div class="stat-label">Anexos Urgentes</div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <h2>📊 Estado Detallado de Anexos</h2>
-            <table class="progress-table">
-                <thead>
-                    <tr>
-                        <th>Anexo</th>
-                        <th>Progreso</th>
-                        <th>Estado</th>
-                        <th>Observaciones</th>
-                        <th>Última Actualización</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ${data.detalle_anexos.map(annex => {
-                        const progressPercent = annex.progreso * 10;
-                        let statusClass = 'status-starting';
-                        if (annex.progreso === 10) statusClass = 'status-completed';
-                        else if (annex.progreso >= 7) statusClass = 'status-advanced';
-                        else if (annex.progreso >= 4) statusClass = 'status-progress';
-                        
-                        return `
-                            <tr>
-                                <td><strong>Anexo ${annex.id}</strong><br>${annex.nombre}</td>
-                                <td>
-                                    <div class="progress-bar">
-                                        <div class="progress-fill ${statusClass}" style="width: ${progressPercent}%"></div>
-                                    </div>
-                                    <br><strong>${progressPercent}%</strong>
-                                </td>
-                                <td><strong>${annex.estado}</strong></td>
-                                <td>${annex.comentario}</td>
-                                <td>${new Date(annex.ultima_actualizacion).toLocaleDateString('es-ES')}</td>
-                            </tr>
-                        `;
-                    }).join('')}
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="section">
-            <div class="recommendations">
-                <h3>📋 Recomendaciones y Próximos Pasos</h3>
-                <ul>
-                    ${data.anexos_urgentes > 0 ? `<li><strong>Atención inmediata:</strong> ${data.anexos_urgentes} anexo(s) requieren atención urgente (progreso ≤ 30%)</li>` : ''}
-                    ${data.anexos_en_progreso > 0 ? `<li><strong>Seguimiento:</strong> ${data.anexos_en_progreso} anexo(s) en desarrollo activo</li>` : ''}
-                    <li><strong>Progreso general:</strong> El sistema presenta un ${data.porcentaje_completado}% de avance</li>
-                    ${data.porcentaje_completado >= 80 ? '<li><strong>Preparación para auditoría:</strong> Se recomienda iniciar preparativos para la auditoría de acreditación</li>' : '<li><strong>Desarrollo continuo:</strong> Mantener el ritmo de trabajo para alcanzar los objetivos planificados</li>'}
-                    <li><strong>Documentación:</strong> Asegurar que todos los procedimientos estén debidamente documentados</li>
-                    <li><strong>Revisión periódica:</strong> Realizar seguimientos semanales del progreso</li>
-                    <li><strong>Capacitación:</strong> Verificar que el personal esté capacitado en los procedimientos implementados</li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <p><strong>Sistema de Acreditación Metrológica - Medición de Caudal</strong></p>
-            <p>Generado automáticamente el ${new Date().toLocaleString('es-ES')}</p>
-            <p>Este reporte refleja el estado actual del proceso de acreditación</p>
-        </div>
-    </div>
-</div>
-
-
-</body>
-</html>`;
-        }
-
-
-    // Inicializar aplicación
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeData();
-        updateProgressDisplay();
-        renderAnnexes();
-        
-        // Mostrar mensaje de bienvenida
-        setTimeout(() => {
-            showSuccessMessage('Sistema cargado correctamente');
-        }, 500);
-    });
-
-    // Manejar teclas de acceso rápido
-    document.addEventListener('keydown', function(e) {
-        // Escape para cancelar edición
-        if (e.key === 'Escape' && editingItem !== null) {
-            cancelEditing();
-        }
-        
-        // Ctrl+S para exportar
-        if (e.ctrlKey && e.key === 's') {
-            e.preventDefault();
-            exportData();
-        }
-    });
-
-    // Prevenir pérdida de datos
-    window.addEventListener('beforeunload', function(e) {
-        if (editingItem !== null) {
-            e.preventDefault();
-            e.returnValue = 'Tienes cambios sin guardar. ¿Estás seguro de que quieres salir?';
-            return e.returnValue;
-        }
-    });
-</script>
-
-
-</body>
-</html>
+            padding:
